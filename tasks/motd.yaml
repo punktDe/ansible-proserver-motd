@@ -1,0 +1,15 @@
+---
+- name: Get current version
+  shell: >
+    uname -v | sed -e 's,^\([^#]*\) #\(.* [1-2][0-9][0-9][0-9]\).*/\([^\]*\) $,\1 (\3) #\2,'
+  register: uname_command_result
+  changed_when: no
+
+- name: Template Message of the Day
+  template:
+    src: motd.j2
+    dest: "{{ item }}"
+  loop_control:
+    label: "{{ item }}"
+  with_items:
+    - /etc/motd

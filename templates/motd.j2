@@ -1,0 +1,16 @@
+{{ uname_command_result.stdout }}
+
+punkt.de        ____
+ _ __  _ __ ___/ ___|  ___ _ ____   _____ _ __
+| '_ \| '__/ _ \___ \ / _ \ '__\ \ / / _ \ '__|
+| |_) | | | (_) |__) |  __/ |   \ V /  __/ |
+| .__/|_|  \___/____/ \___|_|    \_/ \___|_|
+|_|
+
+{% if motd.project %}{{ motd.project }} / {% endif %}{{ inventory_hostname }}{% if inventory_hostname != ansible_nodename %} ({{ ansible_nodename }}){% endif %}
+
+{% filter trim %}
+{% for detail in motd.details %}
+- {{ detail }}
+{% endfor %}
+{% endfilter %}
